@@ -6,18 +6,32 @@ using UnityEngine.InputSystem;
 public class PlayerControl : MonoBehaviour
 {
     [SerializeField] private float speed;
+    [SerializeField] private AudioSource audioSource;
 
     private Rigidbody myRigidbody;
 
-    private float movementX;
-    private float movementZ;
+    [SerializeField]  private float movementX;
+    [SerializeField] private float movementZ;
     private void Awake()
     {
         myRigidbody = GetComponent<Rigidbody>();
     }
-    void Start()
+    void Update()
     {
-        
+        if(movementX != 0 || movementZ != 0)
+        {
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+        }
+        else
+        {
+            if (audioSource.isPlaying)
+            {
+                audioSource.Stop();
+            }
+        }
     }
     private void FixedUpdate()
     {
